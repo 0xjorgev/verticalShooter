@@ -18,35 +18,14 @@ enum physicCategory:UInt32 {
 }
 
 extension SKScene : SKPhysicsContactDelegate {
-
-//    func convertPlayerPoint(player:SKSpriteNode, location:CGPoint) -> CGPoint {
-//        
-//        return CGPointMake(location.x, player.position.y)
-//    }
-
-    
-//    -(void)didBeginContact:(SKPhysicsContact *)contact
-//    {
-//    SKPhysicsBody *firstBody, *secondBody;
-//    
-//    firstBody = contact.bodyA;
-//    secondBody = contact.bodyB;
-//    
-//    if(firstBody.categoryBitMask == spikeHitCategory || secondBody.categoryBitMask == spikeHitCategory)
-//    {
-//    
-//    NSLog(@"balloon hit the spikes");
-//    //setup your methods and other things here
-//    
-//    }
-//    }
     
     public func didBeginContact(contact: SKPhysicsContact) {
        
         let bodyA = contact.bodyA
         let bodyB = contact.bodyB
         
-        if (bodyA.categoryBitMask == physicCategory.Enemy.rawValue || bodyB.categoryBitMask == physicCategory.Bullet.rawValue ){
+        
+        if (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Bullet.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Bullet.rawValue ){
             
             if let enemy = bodyA.node as? SKSpriteNode{
                 enemy.removeFromParent()
@@ -56,12 +35,10 @@ extension SKScene : SKPhysicsContactDelegate {
                 bullet.removeFromParent()
             }
             
+        } else if  (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Player.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Player.rawValue ){
             
-//            (bodyA.node as! SKSpriteNode).removeFromParent()
-//            (bodyB.node as! SKSpriteNode).removeFromParent()
-//            print("Fox 2 ... Hit")
+            //Time to try the protocol Oriented Stuff --> ??
+            print("You're Dead!")
         }
-        
     }
-    
 }

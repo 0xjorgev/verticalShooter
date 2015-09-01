@@ -97,9 +97,9 @@ extension SKSpriteNode {
         
         switch element {
         case .Player:
-            self.physicsBody?.collisionBitMask = physicCategory.Item.rawValue
+            self.physicsBody?.collisionBitMask = physicCategory.Enemy.rawValue | physicCategory.Item.rawValue
         case .Enemy:
-            self.physicsBody?.collisionBitMask = physicCategory.Bullet.rawValue
+            self.physicsBody?.collisionBitMask = physicCategory.Bullet.rawValue | physicCategory.Player.rawValue
         case .Bullet:
             self.physicsBody?.collisionBitMask = physicCategory.Enemy.rawValue
         case .Item:
@@ -112,9 +112,9 @@ extension SKSpriteNode {
         
         switch element {
         case .Player:
-            self.physicsBody?.contactTestBitMask =  physicCategory.Item.rawValue
+            self.physicsBody?.contactTestBitMask =  physicCategory.Item.rawValue | physicCategory.Enemy.rawValue
         case .Enemy:
-            self.physicsBody?.contactTestBitMask = physicCategory.Bullet.rawValue
+            self.physicsBody?.contactTestBitMask = physicCategory.Bullet.rawValue | physicCategory.Player.rawValue
         case .Bullet:
             self.physicsBody?.contactTestBitMask = physicCategory.Enemy.rawValue
         case .Item:

@@ -13,6 +13,7 @@ class GameScene: SKScene {
 
     
     var player:SKSpriteNode! = SKSpriteNode(imageNamed: "player")
+    var isGameOver:Bool!
     
     override func didMoveToView(view: SKView) {
         
@@ -23,9 +24,7 @@ class GameScene: SKScene {
         
         _ = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: Selector("SpawnBullets"), userInfo: nil, repeats: true)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("SpawnEnemies"), userInfo: nil, repeats: true)
-        
-//        self.addChild(player)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: Selector("SpawnEnemies"), userInfo: nil, repeats: true)
         
     }
     
@@ -34,8 +33,7 @@ class GameScene: SKScene {
 
         Bullet.zPosition = -5
         let action = SKAction.moveToY(self.size.height + 30, duration: 0.5)
-        Bullet.setPhysics().addSpriteNodeToScene(self).setNodePosition(CGPointMake(player.position.x, player.position.y)).runNodeAction(SKAction.repeatActionForever(action)).setDynamic(true)
-        Bullet.setGameElement(.Bullet)
+        Bullet.setPhysics().addSpriteNodeToScene(self).setNodePosition(CGPointMake(player.position.x, player.position.y)).runNodeAction(SKAction.repeatActionForever(action)).setDynamic(true).setGameElement(.Bullet)
     }
     
     func SpawnEnemies(){
@@ -46,33 +44,11 @@ class GameScene: SKScene {
         let SpawnPoint = UInt32(MaxValue - MinValue)
         Enemy.position = CGPoint(x: CGFloat(arc4random_uniform(SpawnPoint)), y: self.size.height)
         
-        Enemy.setGameElement(.Enemy).setDynamic(true)
+
         let action = SKAction.moveToY(-70, duration: 3.0)
-        Enemy.runAction(SKAction.repeatActionForever(action))
-        
-        self.addChild(Enemy)
+        Enemy.setGameElement(.Enemy).setDynamic(true).runNodeAction(action).addSpriteNodeToScene(self)
         
     }
-    
-    //iOS 8 code!
-    
-//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        
-//        for touch: AnyObject in touches {
-//            let location = touch.locationInNode(self)
-//            player.moveNodeToPositionX(location)
-//            
-//        }
-//    }
-//    
-//    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        for touch: AnyObject in touches {
-//            let location = touch.locationInNode(self)
-//            player.moveNodeToPositionX(location)
-//            
-//        }
-//    }
-    
     
     //iOS 9 Stuff
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -97,5 +73,8 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        if self.isGameOver != false {
+            self.scene?.view?.paused = true
+        }
     }
 }
