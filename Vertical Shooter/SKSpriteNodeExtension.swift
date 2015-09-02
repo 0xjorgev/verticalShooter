@@ -68,8 +68,16 @@ extension SKSpriteNode {
         return self
     }
     
+    
     func convertPlayerPoint(location:CGPoint) -> CGPoint {
         return CGPointMake(location.x, self.position.y)
+    }
+    
+    func actionThenRemove(action:SKAction) -> SKSpriteNode {
+        let actionDone = SKAction.removeFromParent()
+        let actions = [action, actionDone]
+        let sequence = SKAction.sequence(actions)
+        return self.runNodeAction(sequence)
     }
     
     func setGameElement(element:ElementKind) -> SKSpriteNode {
@@ -120,6 +128,30 @@ extension SKSpriteNode {
         case .Item:
             self.physicsBody?.contactTestBitMask = physicCategory.Player.rawValue
         }
+        return self
+    }
+    
+    func addLight(node:SKSpriteNode) -> SKSpriteNode {
+        
+        /*
+        SKLightNode* light = [[SKLightNode alloc] init];
+        light.categoryBitMask = 1;
+        light.falloff = 1;
+        light.ambientColor = [UIColor whiteColor];
+        light.lightColor = [[UIColor alloc] initWithRed:1.0 green:1.0 blue:0.0 alpha:0.5];
+        light.shadowColor = [[UIColor alloc] initWithRed:0.0 green:0.0 blue:0.0 alpha:0.3];
+        [fireEmmitter addChild:light];
+        */
+        
+        let light = SKLightNode()
+        light.categoryBitMask = physicCategory.Player.rawValue
+        light.falloff = 1
+        light.ambientColor = UIColor.whiteColor()
+        light.lightColor = UIColor.blueColor()
+        light.shadowColor = UIColor.grayColor()
+        
+        node.addChild(light)
+        
         return self
     }
 }

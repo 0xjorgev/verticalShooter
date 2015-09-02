@@ -14,13 +14,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var player:SKSpriteNode! = SKSpriteNode(imageNamed: "player")
     var isGameOver:Bool = false
+    var gameOverLabel:SKLabelNode = SKLabelNode(text: "GAME OVER!")
     
     override func didMoveToView(view: SKView) {
         
         self.physicsWorld.contactDelegate = self
         /* Setup your scene here */
+        gameOverLabel.fontColor = UIColor.blackColor()
+        gameOverLabel.fontName = "Verdana"
+        gameOverLabel.fontSize = 24
+        gameOverLabel.position = CGPointMake( (self.view?.frame.size.width)! / 2, (self.view?.frame.size.height)! / 2)
+        self.scene?.addChild(gameOverLabel)
         
-        player.setPhysics().setNodeBitMask(physicCategory.Player).setNodePosition(CGPointMake(self.size.width / 2, self.size.height / 5)).addSpriteNodeToScene(self).setGameElement(.Player).setDynamic(false)
+        player.setPhysics().setNodeBitMask(physicCategory.Player).setNodePosition(CGPointMake(self.size.width / 2, self.size.height / 5)).addSpriteNodeToScene(self).setGameElement(.Player).setDynamic(false).addLight(player)
         
         _ = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: Selector("SpawnBullets"), userInfo: nil, repeats: true)
         
@@ -30,10 +36,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func SpawnBullets(){
         let Bullet = SKSpriteNode(imageNamed: "bullet")
-
         Bullet.zPosition = -5
         let action = SKAction.moveToY(self.size.height + 30, duration: 0.5)
-        Bullet.setPhysics().addSpriteNodeToScene(self).setNodePosition(CGPointMake(player.position.x, player.position.y)).runNodeAction(SKAction.repeatActionForever(action)).setDynamic(true).setGameElement(.Bullet)
+        Bullet.setPhysics().addSpriteNodeToScene(self).setNodePosition(CGPointMake(player.position.x, player.position.y)).actionThenRemove(SKAction.repeatActionForever(action)).setDynamic(true).setGameElement(.Bullet)
     }
     
     func SpawnEnemies(){
@@ -46,8 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
 
         let action = SKAction.moveToY(-70, duration: 3.0)
-        Enemy.setGameElement(.Enemy).setDynamic(true).runNodeAction(action).addSpriteNodeToScene(self)
-        
+        Enemy.setGameElement(.Enemy).setDynamic(true).actionThenRemove(action).addSpriteNodeToScene(self)
     }
     
     //iOS 9 Stuff
@@ -89,6 +93,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //Time to try the protocol Oriented Stuff --> ??
             print("You're Dead!")
             self.isGameOver = true
+            
         }
     }
 
@@ -96,7 +101,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         if self.isGameOver == true {
-            self.scene?.view?.paused = true
+
+//            gameOverLabel = SKLabelNode(text: "GAME OVER!")
+//            gameOverLabel.position = CGPointMake( (self.view?.frame.size.width)! / 2, (self.view?.frame.size.height)! / 2)
+//            self.scene?.addChild(gameOverLabel)
+//            self.scene?.view?.paused = true
         }
     }
 }
