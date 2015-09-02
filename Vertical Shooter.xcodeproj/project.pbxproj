@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18C831011B97226100C7D4ED /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C831001B97226100C7D4ED /* Protocols.swift */; };
 		18EACE471B8A160D00F0BB29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EACE461B8A160D00F0BB29 /* AppDelegate.swift */; };
 		18EACE491B8A160D00F0BB29 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18EACE481B8A160D00F0BB29 /* GameScene.sks */; };
 		18EACE4B1B8A160D00F0BB29 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EACE4A1B8A160D00F0BB29 /* GameScene.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18C831001B97226100C7D4ED /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		18EACE431B8A160D00F0BB29 /* Vertical Shooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vertical Shooter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18EACE461B8A160D00F0BB29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18EACE481B8A160D00F0BB29 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				18EACE781B8A2BF300F0BB29 /* GameElementProtocol.swift */,
 				18EACE7A1B8A43ED00F0BB29 /* SKSpriteNodeExtension.swift */,
 				18F56C601B8AD95E00C02C90 /* GameSceneExtension.swift */,
+				18C831001B97226100C7D4ED /* Protocols.swift */,
 			);
 			path = "Vertical Shooter";
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 			files = (
 				18F56C611B8AD95E00C02C90 /* GameSceneExtension.swift in Sources */,
 				18EACE4B1B8A160D00F0BB29 /* GameScene.swift in Sources */,
+				18C831011B97226100C7D4ED /* Protocols.swift in Sources */,
 				18EACE4D1B8A160D00F0BB29 /* GameViewController.swift in Sources */,
 				18EACE791B8A2BF300F0BB29 /* GameElementProtocol.swift in Sources */,
 				18EACE7B1B8A43ED00F0BB29 /* SKSpriteNodeExtension.swift in Sources */,

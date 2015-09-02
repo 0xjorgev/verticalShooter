@@ -9,11 +9,11 @@
 import SpriteKit
 
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
 
     
     var player:SKSpriteNode! = SKSpriteNode(imageNamed: "player")
-    var isGameOver:Bool!
+    var isGameOver:Bool = false
     
     override func didMoveToView(view: SKView) {
         
@@ -68,12 +68,34 @@ class GameScene: SKScene {
             player.moveNodeToPositionX(player.convertPlayerPoint(location))
         }
     }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        
+        if (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Bullet.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Bullet.rawValue ){
+            
+            if let enemy = bodyA.node as? SKSpriteNode{
+                enemy.removeFromParent()
+            }
+            
+            if let bullet = bodyB.node as? SKSpriteNode{
+                bullet.removeFromParent()
+            }
+            
+        } else if  (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Player.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Player.rawValue ){
+            
+            //Time to try the protocol Oriented Stuff --> ??
+            print("You're Dead!")
+            self.isGameOver = true
+        }
+    }
 
     
-   
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if self.isGameOver != false {
+        if self.isGameOver == true {
             self.scene?.view?.paused = true
         }
     }

@@ -17,28 +17,31 @@ enum physicCategory:UInt32 {
     case Item = 4
 }
 
-extension SKScene : SKPhysicsContactDelegate {
+extension SKScene  {
     
-    public func didBeginContact(contact: SKPhysicsContact) {
-       
-        let bodyA = contact.bodyA
-        let bodyB = contact.bodyB
-        
-        
-        if (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Bullet.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Bullet.rawValue ){
-            
-            if let enemy = bodyA.node as? SKSpriteNode{
-                enemy.removeFromParent()
-            }
-            
-            if let bullet = bodyB.node as? SKSpriteNode{
-                bullet.removeFromParent()
-            }
-            
-        } else if  (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Player.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Player.rawValue ){
-            
-            //Time to try the protocol Oriented Stuff --> ??
-            print("You're Dead!")
-        }
+    public func setGameOver() -> Bool {
+        return true
     }
+    
+//    public func didBeginContact(contact: SKPhysicsContact) {
+//        
+//        let bodyA = contact.bodyA
+//        let bodyB = contact.bodyB
+//        
+//        if (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Bullet.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Bullet.rawValue ){
+//            
+//            if let enemy = bodyA.node as? SKSpriteNode{
+//                enemy.removeFromParent()
+//            }
+//            
+//            if let bullet = bodyB.node as? SKSpriteNode{
+//                bullet.removeFromParent()
+//            }
+//            
+//        } else if  (bodyA.categoryBitMask == physicCategory.Enemy.rawValue && bodyB.categoryBitMask == physicCategory.Player.rawValue ) || (bodyB.categoryBitMask == physicCategory.Enemy.rawValue && bodyA.categoryBitMask == physicCategory.Player.rawValue ){
+//            
+//            //Time to try the protocol Oriented Stuff --> ??
+//            print("You're Dead!")
+//        }
+//    }
 }
