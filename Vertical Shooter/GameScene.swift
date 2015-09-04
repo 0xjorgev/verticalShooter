@@ -17,14 +17,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameOverLabel:SKLabelNode = SKLabelNode(text: "GAME OVER!")
     
     override func didMoveToView(view: SKView) {
-        
+        //01050221781221092162
+        //18350591
         self.physicsWorld.contactDelegate = self
         /* Setup your scene here */
-        gameOverLabel.fontColor = UIColor.blackColor()
-        gameOverLabel.fontName = "Verdana"
-        gameOverLabel.fontSize = 24
-        gameOverLabel.position = CGPointMake( (self.view?.frame.size.width)! / 2, (self.view?.frame.size.height)! / 2)
-        self.scene?.addChild(gameOverLabel)
+//        gameOverLabel.fontColor = UIColor.blackColor()
+//        gameOverLabel.fontName = "Verdana"
+//        gameOverLabel.fontSize = 24
+//        gameOverLabel.position = CGPointMake( (self.view?.frame.size.width)! / 2, (self.view?.frame.size.height)! / 2)
+//        gameOverLabel.zPosition = 5.0
+//        self.scene?.addChild(gameOverLabel)
+        
+//        let label = SKLabelNode();
+//        label.text = "Hello World"
+        gameOverLabel.fontSize = 80
+        gameOverLabel.position = CGPoint(x:self.size.width / 2 ,y:self.size.height / 2)
+        gameOverLabel.color = UIColor.blackColor()
+        gameOverLabel.hidden = true
+        
+        self.addChild(gameOverLabel)
         
         player.setPhysics().setNodeBitMask(physicCategory.Player).setNodePosition(CGPointMake(self.size.width / 2, self.size.height / 5)).addSpriteNodeToScene(self).setGameElement(.Player).setDynamic(false).addLight(player)
         
@@ -102,10 +113,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         /* Called before each frame is rendered */
         if self.isGameOver == true {
 
-//            gameOverLabel = SKLabelNode(text: "GAME OVER!")
-//            gameOverLabel.position = CGPointMake( (self.view?.frame.size.width)! / 2, (self.view?.frame.size.height)! / 2)
-//            self.scene?.addChild(gameOverLabel)
-//            self.scene?.view?.paused = true
+            gameOverLabel.hidden = false
+            self.scene?.paused = true
+            
+            //Need to hanlde the timers on pause
         }
     }
 }
